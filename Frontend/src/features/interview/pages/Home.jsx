@@ -1,6 +1,14 @@
 import "../style/Home.scss";
 import { useState, useRef } from "react";
-import { BriefcaseBusiness, CloudUpload, Info, Sparkles, UserRound } from "lucide-react";
+import {
+    BriefcaseBusiness,
+    CloudUpload,
+    FileText,
+    Info,
+    Sparkles,
+    UserRound,
+    X,
+} from "lucide-react";
 import {useInterview} from "../hooks/useInterview.js"
 import {Link, useNavigate} from "react-router"
 
@@ -10,15 +18,24 @@ const Home = () => {
 
     const [jobDescription,setJobDescription]=useState("")
     const [selfDescription,setSelfDescription]=useState("")
+    const [resumeFile,setResumeFile]=useState(null)
     const resumeInputRef=useRef()
 
     const navigate=useNavigate()
 
     const handleGenerateReport=async()=>{
-        const resumeFile=resumeInputRef.current.files[0]
         const data=await generateReport({jobDescription,selfDescription,resumeFile})
         navigate(`/interview/${data._id}`)
 
+    }
+
+    const handleResumeChange=(event)=>{
+        setResumeFile(event.target.files?.[0] ?? null)
+    }
+
+    const handleRemoveResume=()=>{
+        setResumeFile(null)
+        resumeInputRef.current.value=""
     }
 
     if(loading){
@@ -93,7 +110,29 @@ const Home = () => {
                                 name="resume"
                                 id="resume"
                                 accept=".pdf"
+                                onChange={handleResumeChange}
                             />
+                            {resumeFile && (
+                                <div className="selected-resume">
+                                    <FileText aria-hidden="true" />
+                                    <div className="selected-resume__details">
+                                        <span className="selected-resume__name" title={resumeFile.name}>
+                                            {resumeFile.name}
+                                        </span>
+                                        <span className="selected-resume__size">
+                                            {(resumeFile.size / (1024 * 1024)).toFixed(2)} MB · PDF
+                                        </span>
+                                    </div>
+                                    <button
+                                        aria-label={`Remove ${resumeFile.name}`}
+                                        className="selected-resume__remove"
+                                        onClick={handleRemoveResume}
+                                        type="button"
+                                    >
+                                        <X aria-hidden="true" />
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         <div className="or-divider" aria-hidden="true">
@@ -151,7 +190,7 @@ const Home = () => {
                                 to={`/interview/${previousReport._id}`}
                             >
                                 <span className="previous-plan__title">
-                                    Interview plan
+                                    {previousReport.title || "Interview Plan"}
                                 </span>
                                 <span className="previous-plan__date">
                                     {previousReport.createdAt

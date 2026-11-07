@@ -329,6 +329,68 @@
         }
     }
 
+    .selected-resume {
+        min-width: 0;
+        padding: 9px 10px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid rgb(105 198 157 / 28%);
+        border-radius: 8px;
+        background: rgb(105 198 157 / 8%);
+
+        > svg {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 auto;
+            color: #7bc9a8;
+        }
+
+        &__details {
+            min-width: 0;
+            flex: 1;
+            display: grid;
+            gap: 3px;
+        }
+
+        &__name {
+            overflow: hidden;
+            color: var(--text);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &__size {
+            color: var(--muted);
+            font-size: 0.62rem;
+        }
+
+        &__remove {
+            width: 27px;
+            height: 27px;
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+
+            &:hover {
+                border-color: #e87983;
+                color: #ff7b83;
+            }
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+
     .or-divider {
         height: 1px;
         display: flex;
