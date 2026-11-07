@@ -1,7 +1,34 @@
 import "../style/Home.scss";
+import { useState, useRef } from "react";
 import { BriefcaseBusiness, CloudUpload, Info, Sparkles, UserRound } from "lucide-react";
+import {useInterview} from "../hooks/useInterview.js"
+import {Link, useNavigate} from "react-router"
 
 const Home = () => {
+
+    const {loading,reports,reportError,generateReport}=useInterview()
+
+    const [jobDescription,setJobDescription]=useState("")
+    const [selfDescription,setSelfDescription]=useState("")
+    const resumeInputRef=useRef()
+
+    const navigate=useNavigate()
+
+    const handleGenerateReport=async()=>{
+        const resumeFile=resumeInputRef.current.files[0]
+        const data=await generateReport({jobDescription,selfDescription,resumeFile})
+        navigate(`/interview/${data._id}`)
+
+    }
+
+    if(loading){
+        return(
+            <main className="loading-screen">
+                <h1>Loading your Interview plan...</h1>
+            </main>
+        )
+    }
+
     return (
         <main className="home">
             <header className="home__header">
@@ -28,6 +55,7 @@ const Home = () => {
                             Target job description
                         </label>
                         <textarea
+                            onChange={(e)=>{setJobDescription(e.target.value)}}
                             className="job-panel__textarea"
                             name="jobDescription"
                             id="jobDescription"
@@ -55,15 +83,16 @@ const Home = () => {
                                     Click to upload or drag &amp; drop
                                 </span>
                                 <span className="upload-zone__secondary">
-                                    PDF or DOCX (Max. 5MB)
+                                    PDF (Max. 5MB)
                                 </span>
                             </label>
                             <input
                                 className="sr-only"
+                                ref={resumeInputRef}
                                 type="file"
                                 name="resume"
                                 id="resume"
-                                accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                accept=".pdf"
                             />
                         </div>
 
@@ -74,6 +103,7 @@ const Home = () => {
                         <div className="profile-panel__description">
                             <label htmlFor="selfDescription">Quick Self-Description</label>
                             <textarea
+                                onChange={(e)=>{setSelfDescription(e.target.value)}}
                                 name="selfDescription"
                                 id="selfDescription"
                                 maxLength={1000}
@@ -94,11 +124,53 @@ const Home = () => {
 
                 <footer className="interview-card__footer">
                     <p>AI-Powered Strategy Generation · Approx 30s</p>
-                    <button className="generate-button" type="button">
+                    <button className="generate-button" type="button" onClick={handleGenerateReport}>
                         <Sparkles aria-hidden="true" />
                         Generate My Interview Strategy
                     </button>
                 </footer>
+            </section>
+
+            <section className="previous-plans" aria-labelledby="previous-plans-heading">
+                <header className="previous-plans__header">
+                    <div>
+                        <h2 id="previous-plans-heading">Previous interview plans</h2>
+                        <p>Pick up where you left off with a saved report.</p>
+                    </div>
+                    <span>{reports.length}</span>
+                </header>
+
+                {reportError ? (
+                    <p className="previous-plans__message" role="alert">{reportError}</p>
+                ) : reports.length ? (
+                    <div className="previous-plans__list">
+                        {reports.map((previousReport) => (
+                            <Link
+                                className="previous-plan"
+                                key={previousReport._id}
+                                to={`/interview/${previousReport._id}`}
+                            >
+                                <span className="previous-plan__title">
+                                    Interview plan
+                                </span>
+                                <span className="previous-plan__date">
+                                    {previousReport.createdAt
+                                        ? new Date(previousReport.createdAt).toLocaleDateString()
+                                        : "Saved report"}
+                                </span>
+                                <span className="previous-plan__score">
+                                    {Number.isFinite(Number(previousReport.matchScore))
+                                        ? `${previousReport.matchScore}% match`
+                                        : "View report"}
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="previous-plans__message">
+                        No saved plans yet. Generate your first interview plan above.
+                    </p>
+                )}
             </section>
         </main>
     );

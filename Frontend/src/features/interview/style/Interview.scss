@@ -153,6 +153,13 @@
             font-size: 0.72rem;
             line-height: 1.5;
         }
+
+        &__error {
+            margin-top: 16px;
+            color: #ff7b83;
+            font-size: 0.74rem;
+            line-height: 1.5;
+        }
     }
 
     .question-list {
@@ -162,35 +169,21 @@
     }
 
     .question-card {
-        overflow: hidden;
+        padding: 13px;
         border: 1px solid #292f3b;
         border-radius: 8px;
         background: #1b202b;
 
-        summary {
-            min-height: 46px;
-            padding: 10px 12px;
-            display: grid;
-            grid-template-columns: 25px minmax(0, 1fr) 15px;
+        &__heading {
+            display: flex;
             align-items: center;
-            gap: 9px;
-            cursor: pointer;
-            list-style: none;
+            gap: 8px;
 
-            &::-webkit-details-marker {
-                display: none;
+            h2 {
+                color: #f05b99;
+                font-size: 0.72rem;
+                font-weight: 700;
             }
-
-            > svg {
-                width: 14px;
-                height: 14px;
-                color: #9299a7;
-                transition: transform 150ms ease;
-            }
-        }
-
-        &[open] summary > svg {
-            transform: rotate(180deg);
         }
 
         &__number {
@@ -205,6 +198,7 @@
         }
 
         &__question {
+            margin: 8px 0 14px;
             color: #e7e9ee;
             font-size: 0.74rem;
             font-weight: 600;
@@ -212,16 +206,16 @@
         }
 
         &__details {
-            padding: 0 12px 13px 46px;
+            padding-top: 10px;
             display: grid;
-            gap: 12px;
+            gap: 4px;
+            border-top: 1px solid #292f3b;
 
-            > div {
-                display: grid;
-                gap: 4px;
+            & + & {
+                margin-top: 10px;
             }
 
-            span {
+            h3 {
                 color: #f05b99;
                 font-size: 0.65rem;
                 font-weight: 700;

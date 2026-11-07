@@ -69,6 +69,90 @@
         }
     }
 
+    .previous-plans {
+        width: min(82vw, 1080px);
+        padding: 18px 20px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--panel-bg);
+
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            h2 {
+                font-size: 0.9rem;
+                font-weight: 700;
+            }
+
+            p {
+                margin-top: 4px;
+                color: var(--muted);
+                font-size: 0.7rem;
+            }
+
+            > span {
+                min-width: 24px;
+                height: 24px;
+                padding-inline: 7px;
+                display: grid;
+                place-items: center;
+                border-radius: 12px;
+                background: #252b36;
+                color: var(--text);
+                font-size: 0.68rem;
+            }
+        }
+
+        &__list {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 9px;
+        }
+
+        &__message {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 0.72rem;
+        }
+    }
+
+    .previous-plan {
+        min-width: 0;
+        padding: 12px;
+        display: grid;
+        gap: 5px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #1b202b;
+        color: var(--text);
+        text-decoration: none;
+        transition: border-color 150ms ease, background-color 150ms ease;
+
+        &:hover {
+            border-color: var(--pink);
+            background: #202633;
+        }
+
+        &__title {
+            font-size: 0.76rem;
+            font-weight: 650;
+        }
+
+        &__date,
+        &__score {
+            color: var(--muted);
+            font-size: 0.66rem;
+        }
+
+        &__score {
+            color: #f05b99;
+        }
+    }
+
     .job-panel,
     .profile-panel {
         min-width: 0;
@@ -348,6 +432,10 @@
         gap: 24px;
 
         .interview-card {
+            width: 100%;
+        }
+
+        .previous-plans {
             width: 100%;
         }
 

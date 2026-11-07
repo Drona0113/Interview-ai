@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import {
     ArrowLeft,
     CalendarDays,
     Check,
-    ChevronDown,
     CircleHelp,
     MessageSquareText,
     Minus,
@@ -13,6 +12,7 @@ import {
     TrendingUp,
 } from "lucide-react";
 import "../style/Interview.scss";
+import{useInterview} from "../hooks/useInterview"
 
 const sections = [
     { id: "technical", label: "Technical Questions", icon: CircleHelp },
@@ -39,33 +39,27 @@ const QuestionList = ({ questions, type }) => {
     return (
         <div className="question-list">
             {questions.map((item, index) => (
-                <details
-                    className="question-card"
-                    key={`${type}-${index}`}
-                    open={index === 0}
-                >
-                    <summary>
+                <article className="question-card" key={`${type}-${index}`}>
+                    <div className="question-card__heading">
                         <span className="question-card__number">
                             {String(index + 1).padStart(2, "0")}
                         </span>
-                        <span className="question-card__question">{item.question}</span>
-                        <ChevronDown aria-hidden="true" />
-                    </summary>
-                    <div className="question-card__details">
-                        {item.intention && (
-                            <div>
-                                <span>What this evaluates</span>
-                                <p>{item.intention}</p>
-                            </div>
-                        )}
-                        {item.answer && (
-                            <div>
-                                <span>Suggested answer</span>
-                                <p>{item.answer}</p>
-                            </div>
-                        )}
+                        <h2>Question</h2>
                     </div>
-                </details>
+                    <p className="question-card__question">{item.question}</p>
+                    {item.intention && (
+                        <div className="question-card__details">
+                            <h3>Intention</h3>
+                            <p>{item.intention}</p>
+                        </div>
+                    )}
+                    {item.answer && (
+                        <div className="question-card__details">
+                            <h3>Answer</h3>
+                            <p>{item.answer}</p>
+                        </div>
+                    )}
+                </article>
             ))}
         </div>
     );
@@ -104,11 +98,16 @@ const Roadmap = ({ plan }) => {
 
 const Interview = ({ interview: interviewProp }) => {
     const location = useLocation();
-    const report =
+    const { interviewId } = useParams();
+    const { report, loading, reportError } = useInterview(interviewId);
+    const navigationReport =
         interviewProp ??
         location.state?.interview ??
         (location.state?.matchScore !== undefined ? location.state : null);
-    const interview = report;
+    const contextReport =
+        String(report?._id ?? "") === interviewId ? report : null;
+    const interview = navigationReport ?? contextReport;
+
     const [activeSection, setActiveSection] = useState("technical");
     const matchScore = Number(interview?.matchScore);
     const hasMatchScore =
@@ -163,16 +162,24 @@ const Interview = ({ interview: interviewProp }) => {
                         </span>
                     </header>
 
-                    {activeSection === "technical" && (
+                    {loading && !interview && (
+                        <p className="results-content__hint">Loading interview report…</p>
+                    )}
+                    {!loading && reportError && (
+                        <p className="results-content__error" role="alert">
+                            {reportError}
+                        </p>
+                    )}
+                    {!loading && !reportError && activeSection === "technical" && (
                         <QuestionList questions={questions} type="Technical" />
                     )}
-                    {activeSection === "behavioral" && (
+                    {!loading && !reportError && activeSection === "behavioral" && (
                         <QuestionList questions={questions} type="Behavioral" />
                     )}
-                    {activeSection === "roadmap" && (
+                    {!loading && !reportError && activeSection === "roadmap" && (
                         <Roadmap plan={interview?.preparationPlan} />
                     )}
-                    {!interview && (
+                    {!loading && !reportError && !interview && (
                         <p className="results-content__hint">
                             No interview report is available yet. Generate a plan to view your
                             personalized results here.
