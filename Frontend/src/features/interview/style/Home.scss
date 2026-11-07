@@ -1,0 +1,409 @@
+.home {
+    --home-bg: #0c0f13;
+    --panel-bg: #151a22;
+    --field-bg: #202536;
+    --border: #2a303b;
+    --muted: #969dab;
+    --text: #f3f4f6;
+    --pink: #e82778;
+    --pink-strong: #db0055;
+
+    min-height: 100vh;
+    padding: 44px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 23px;
+    background: var(--home-bg);
+    color: var(--text);
+
+    &__header {
+        text-align: center;
+
+        h1 {
+            font-size: clamp(1.45rem, 3.4vw, 2.25rem);
+            font-weight: 750;
+            line-height: 1.2;
+            letter-spacing: -0.035em;
+
+            span {
+                color: var(--pink);
+            }
+        }
+
+        p {
+            margin-top: 6px;
+            color: #a4a8b1;
+            font-size: 0.94rem;
+            line-height: 1.6;
+        }
+    }
+
+    .interview-card {
+        width: min(82vw, 1080px);
+        overflow: hidden;
+        border: 1px solid #282e38;
+        border-radius: 17px;
+        background: var(--panel-bg);
+        box-shadow: 0 18px 55px rgb(0 0 0 / 18%);
+
+        &__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        &__footer {
+            min-height: 58px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            border-top: 1px solid var(--border);
+
+            p {
+                color: var(--muted);
+                font-size: 0.72rem;
+            }
+        }
+    }
+
+    .job-panel,
+    .profile-panel {
+        min-width: 0;
+        padding: 18px 19px;
+    }
+
+    .job-panel {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--border);
+
+        &__textarea {
+            flex: 1;
+            min-height: 290px;
+            margin-top: 14px;
+            padding: 13px;
+            border: 1px solid #292f41;
+            border-radius: 9px;
+            outline: none;
+            background: var(--field-bg);
+            color: var(--text);
+            font-size: 0.74rem;
+            line-height: 1.55;
+            resize: none;
+            transition: border-color 160ms ease;
+
+            &::placeholder {
+                color: #858b9a;
+                opacity: 1;
+            }
+
+            &:focus {
+                border-color: var(--pink);
+            }
+        }
+    }
+
+    .panel-heading,
+    .panel-heading h2 {
+        display: flex;
+        align-items: center;
+    }
+
+    .panel-heading {
+        justify-content: space-between;
+        gap: 10px;
+
+        h2 {
+            gap: 9px;
+            font-size: 0.82rem;
+            font-weight: 650;
+
+            svg {
+                width: 17px;
+                height: 17px;
+                fill: none;
+                stroke: var(--pink);
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 1.8;
+            }
+        }
+    }
+
+    .tag {
+        padding: 4px 8px;
+        border-radius: 5px;
+        font-size: 0.64rem;
+        font-weight: 750;
+        line-height: 1;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        &--required,
+        &--best {
+            background: rgb(232 39 120 / 15%);
+            color: #f05b99;
+        }
+    }
+
+    .profile-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        &__upload,
+        &__description {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        &__description {
+            label {
+                font-size: 0.76rem;
+                font-weight: 600;
+            }
+
+            textarea {
+                min-height: 150px;
+                padding: 12px;
+                border: 1px solid #77304f;
+                border-radius: 8px;
+                outline: none;
+                background: var(--field-bg);
+                color: var(--text);
+                font-size: 0.72rem;
+                line-height: 1.5;
+                resize: vertical;
+                transition: border-color 160ms ease;
+
+                &::placeholder {
+                    color: #858b9a;
+                    opacity: 1;
+                }
+
+                &:focus {
+                    border-color: var(--pink);
+                }
+            }
+        }
+    }
+
+    .field-heading {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        label {
+            font-size: 0.76rem;
+            font-weight: 600;
+        }
+    }
+
+    .upload-zone {
+        min-height: 86px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        border: 1px dashed #3c4353;
+        border-radius: 9px;
+        background: var(--field-bg);
+        cursor: pointer;
+        text-align: center;
+        transition: border-color 160ms ease, background-color 160ms ease;
+
+        &:hover {
+            border-color: var(--pink);
+            background: #232839;
+        }
+
+        svg {
+            width: 23px;
+            height: 23px;
+            margin-bottom: 4px;
+            fill: none;
+            stroke: var(--pink);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+
+        &__primary {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        &__secondary {
+            color: var(--muted);
+            font-size: 0.66rem;
+        }
+    }
+
+    .or-divider {
+        height: 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--border);
+
+        span {
+            padding: 0 12px;
+            background: var(--panel-bg);
+            color: var(--muted);
+            font-size: 0.72rem;
+        }
+    }
+
+    .info-note {
+        min-height: 44px;
+        padding: 8px 10px;
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        border: 1px solid #2a416c;
+        border-radius: 8px;
+        background: #1b2b4a;
+        color: #bdc9df;
+
+        svg {
+            width: 15px;
+            height: 15px;
+            flex: 0 0 auto;
+            margin-top: 1px;
+            fill: none;
+            stroke: #68a9ff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2;
+        }
+
+        p {
+            font-size: 0.66rem;
+            line-height: 1.5;
+        }
+
+        strong {
+            color: #e4e9f2;
+        }
+    }
+
+    .generate-button {
+        min-height: 38px;
+        padding: 0 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border: 0;
+        border-radius: 8px;
+        background: linear-gradient(110deg, #e81e72, #dc0055);
+        color: white;
+        cursor: pointer;
+        font-size: 0.76rem;
+        font-weight: 700;
+        white-space: nowrap;
+        transition: filter 160ms ease, transform 160ms ease;
+
+        &:hover {
+            filter: brightness(1.1);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        &:focus-visible {
+            outline: 2px solid #ff85b4;
+            outline-offset: 3px;
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2;
+        }
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        clip-path: inset(50%);
+        border: 0;
+    }
+
+    @media (max-width: 720px) {
+        justify-content: flex-start;
+        padding: 38px 18px;
+        gap: 24px;
+
+        .interview-card {
+            width: 100%;
+        }
+
+        .home__subtitle-break {
+            display: none;
+        }
+
+        .interview-card__footer {
+            align-items: stretch;
+            flex-direction: column;
+            padding: 18px;
+            width: 100%;
+
+            p {
+                text-align: center;
+            }
+        }
+
+        .job-panel,
+        .profile-panel {
+            padding: 22px;
+        }
+
+        .job-panel__textarea {
+            min-height: 320px;
+        }
+    }
+
+    @media (max-width: 560px) {
+        padding: 30px 14px;
+
+        &__header p {
+            max-width: 360px;
+            margin-inline: auto;
+        }
+
+        .interview-card__content {
+            grid-template-columns: 1fr;
+        }
+
+        .job-panel {
+            border-right: 0;
+            border-bottom: 1px solid var(--border);
+
+            &__textarea {
+                min-height: 230px;
+            }
+        }
+
+        .profile-panel {
+            gap: 14px;
+        }
+
+        .generate-button {
+            width: 100%;
+            white-space: normal;
+        }
+    }
+}
