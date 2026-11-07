@@ -5,6 +5,7 @@ import {
     CalendarDays,
     Check,
     CircleHelp,
+    Download,
     MessageSquareText,
     Minus,
     OctagonAlert,
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import "../style/Interview.scss";
 import{useInterview} from "../hooks/useInterview"
+import LogoutButton from "../../auth/components/LogoutButton";
 
 const sections = [
     { id: "technical", label: "Technical Questions", icon: CircleHelp },
@@ -99,7 +101,7 @@ const Roadmap = ({ plan }) => {
 const Interview = ({ interview: interviewProp }) => {
     const location = useLocation();
     const { interviewId } = useParams();
-    const { report, loading, reportError } = useInterview(interviewId);
+    const { report, loading, reportError, getResumePdf } = useInterview(interviewId);
     const navigationReport =
         interviewProp ??
         location.state?.interview ??
@@ -149,6 +151,20 @@ const Interview = ({ interview: interviewProp }) => {
                             </button>
                         ))}
                     </div>
+                    <button
+                        className="results-nav__download"
+                        disabled={!interview}
+                        onClick={() =>
+                            getResumePdf(interviewId).catch((error) =>
+                                console.error("Could not download resume PDF:", error)
+                            )
+                        }
+                        type="button"
+                    >
+                        <Download aria-hidden="true" />
+                        Download Resume PDF
+                    </button>
+                    <LogoutButton />
                 </nav>
 
                 <section className="results-content" aria-live="polite">

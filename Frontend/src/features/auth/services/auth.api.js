@@ -40,7 +40,7 @@ export async function logout(){
         const response = await api.get('/api/auth/logout')
         return response.data
     }catch(err){
-        console.log(err)
+        throw err
     }
 }
 
@@ -52,4 +52,3 @@ export async function getMe(){
         console.log(err)
     }
 }
-

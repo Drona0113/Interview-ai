@@ -1,0 +1,44 @@
+.logout-control {
+    display: grid;
+    justify-items: end;
+    gap: 6px;
+
+    &__button {
+        min-height: 36px;
+        padding: 0 11px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        border: 1px solid #343a44;
+        border-radius: 7px;
+        background: #171b23;
+        color: #c5cad3;
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.72rem;
+        transition: border-color 150ms ease, color 150ms ease;
+
+        &:hover:not(:disabled) {
+            border-color: #e82778;
+            color: #f05b99;
+        }
+
+        &:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    &__error {
+        max-width: 240px;
+        color: #ff7b83;
+        font-size: 0.68rem;
+        text-align: right;
+    }
+}

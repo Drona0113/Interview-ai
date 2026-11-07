@@ -8,6 +8,7 @@
 
     width: 100%;
     min-height: 100vh;
+    position: relative;
     padding: 28px;
     background: var(--results-bg);
     color: var(--results-text);
@@ -65,6 +66,63 @@
         &__links {
             display: grid;
             gap: 7px;
+        }
+
+        &__download {
+            width: 100%;
+            min-height: 38px;
+            margin-top: 20px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            border: 1px solid #315b88;
+            border-radius: 7px;
+            background: #1b2b40;
+            color: #a9d0ff;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.68rem;
+            transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+
+            &:hover:not(:disabled) {
+                border-color: #4c83bc;
+                background: #223b59;
+                color: #d3e6ff;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 0.55;
+            }
+
+            svg {
+                width: 15px;
+                height: 15px;
+                flex: 0 0 auto;
+            }
+        }
+
+        .logout-control {
+            margin-top: 8px;
+            justify-items: stretch;
+
+            &__button {
+                width: 100%;
+            }
+
+            &__error {
+                text-align: left;
+            }
+        }
+
+        &__error {
+            margin-top: 8px;
+            color: #ff7b83;
+            font-size: 0.67rem;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
         }
 
         &__link {

@@ -39,11 +39,8 @@ export const useAuth = () => {
     const handleLogout = async () => {
         setLoading(true);
         try {
-            
-            const data=await logout();
+            await logout();
             setUser(null);
-        } catch (err) {
-           
         }finally {
             setLoading(false);
         }

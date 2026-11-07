@@ -9,6 +9,7 @@
     --pink-strong: #db0055;
 
     min-height: 100vh;
+    position: relative;
     padding: 44px 24px;
     display: flex;
     flex-direction: column;
@@ -17,6 +18,12 @@
     gap: 23px;
     background: var(--home-bg);
     color: var(--text);
+
+    > .logout-control {
+        position: absolute;
+        top: 22px;
+        right: 24px;
+    }
 
     &__header {
         text-align: center;

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import {useInterview} from "../hooks/useInterview.js"
 import {Link, useNavigate} from "react-router"
+import LogoutButton from "../../auth/components/LogoutButton";
 
 const Home = () => {
 
@@ -48,6 +49,7 @@ const Home = () => {
 
     return (
         <main className="home">
+            <LogoutButton />
             <header className="home__header">
                 <h1>
                     Create Your Custom <span>Interview Plan</span>
